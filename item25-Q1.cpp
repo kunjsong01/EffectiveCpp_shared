@@ -16,7 +16,14 @@ class Widget { // class using the pimpl idiom
 
     Widget(const Widget& rhs);
     Widget& operator=(const Widget& rhs) { 
+      // ...
       *pImpl = *(rhs.pImpl);
+
+      return *this;
+    }
+
+    ~Widget() {
+      delete pImpl;
     }
 
     void swap(Widget& other) {
@@ -26,13 +33,14 @@ class Widget { // class using the pimpl idiom
     // ...
   private:
     WidgetImpl *pImpl; // ptr to WidgetImpl object
-  }; 
+}; 
 
+// a nont member function in WidgetStuff namespace
 void swap(Widget& a, Widget& b) {
   a.swap(b);
 }
 
-}
+} // END OF WidgetStuff namespace
 
 // code will be called like this: 
 WidgetImpl* xData = new WidgetImpl();
